@@ -1,10 +1,6 @@
 __pycache__
 .ipynb*/
-logs/
-vis*/
+*/*@
 misc/
-
-logs
-vis_res
 
 *.sh
