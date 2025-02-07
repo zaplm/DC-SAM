@@ -1,0 +1,6 @@
+__pycache__
+logs/
+vis*/
+misc/
+
+*.sh
