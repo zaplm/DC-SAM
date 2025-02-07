@@ -1,6 +1,6 @@
 __pycache__
 .ipynb*/
-*/*@
+logs/
 misc/
 
 *.sh
