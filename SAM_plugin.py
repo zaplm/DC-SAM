@@ -15,7 +15,7 @@ class SAM_plugin(nn.Module):
         print('sam_version:', sam_version)
         
         if sam_version == 1:
-            sam_model = sam_model_registry['vit_h']('/root/autodl-tmp/weights/sam_vit_h.pth')
+            sam_model = sam_model_registry['vit_h']('/path/to/ckpt')
             self.image_encoder = sam_model.image_encoder
             self.prompt_encoder = sam_model.prompt_encoder
             self.mask_decoder = sam_model.mask_decoder
@@ -23,7 +23,7 @@ class SAM_plugin(nn.Module):
             self.prompt_encoder.requires_grad_(False)
             self.mask_decoder.requires_grad_(False)
         elif sam_version == 2:
-            sam2_model = build_sam2("sam2.1_hiera_l.yaml", '/root/autodl-tmp/weights/sam2.1_hiera_large.pt')
+            sam2_model = build_sam2("sam2.1_hiera_l.yaml", '/path/to/ckpt')
             self.image_encoder = sam2_model.image_encoder
             self.prompt_encoder = sam2_model.sam_prompt_encoder
             self.mask_decoder = sam2_model.sam_mask_decoder
@@ -66,7 +66,7 @@ class SAM_plugin(nn.Module):
         return  query_feats
     
     def get_feat_sam(self, query_img, query_name):
-        np_feat_path = '/root/autodl-tmp/saw-sam/v1_feat/'
+        np_feat_path = '/path/to/save/feat/'
         if not os.path.exists(np_feat_path): os.makedirs(np_feat_path)
         query_feat_list = []
         for idx, name in enumerate(query_name):

@@ -147,7 +147,7 @@ def vgg16(pretrained=False, **kwargs):
     model = VGG(make_layers(cfg['D']), **kwargs)
     if pretrained:
         # model.load_state_dict(model_zoo.load_url(model_urls['vgg16_bn']))
-        model_path = '/root/paddlejob/workspace/env_run/hsnet_detr/vgg16.pth'
+        model_path = '/path/to/vgg16_bn_fss.pth'
         model.load_state_dict(torch.load(model_path), strict=False) 
     return model
 

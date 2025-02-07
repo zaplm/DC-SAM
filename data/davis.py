@@ -67,7 +67,3 @@ class DatasetDAVIS(Dataset):
                  'support_masks': support_masks,
                  'support_names': support_names,}
         return batch
-
-if __name__ == '__main__':
-    dataset = DatasetDAVIS(data_root='/root/autodl-tmp/DAVIS', split='train', img_size=512)
-    print(dataset[0])

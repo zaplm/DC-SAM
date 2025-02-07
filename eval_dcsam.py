@@ -54,7 +54,7 @@ if __name__ == '__main__':
 
     # Arguments parsing
     parser = argparse.ArgumentParser(description='Visual Prompt Encoder Pytorch Implementation')
-    parser.add_argument('--datapath', type=str, default='/root/autodl-tmp')
+    parser.add_argument('--datapath', type=str, default='/path/to/dataset')
     parser.add_argument('--benchmark', type=str, default='pascal', choices=['pascal', 'coco', 'fss'])
     parser.add_argument('--sam_version', type=int, default=1)
     parser.add_argument('--bsz', type=int, default=2) # batch size = num_gpu * bsz default num_gpu = 4

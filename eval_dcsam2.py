@@ -46,7 +46,7 @@ def parse_arguments():
     parser.add_argument('--num_query', type=int, default=25)
     parser.add_argument('--backbone', type=str, default='resnet50', choices=['vgg16', 'resnet50', 'resnet101', 'swinb', 'dinov2b'])
     parser.add_argument('--data_type', type=str, default='video')
-    parser.add_argument('--sam2_checkpoint', type=str, default='/root/autodl-tmp/weights/sam2.1_hiera_large.pt')
+    parser.add_argument('--sam2_checkpoint', type=str, default='/path/to/sam2_checkpoint')
     parser.add_argument('--sam2_cfg', type=str, default='sam2.1_hiera_l.yaml')
     parser.add_argument('--lora', action='store_true', help='Use LoRA')
     parser.add_argument('--prior', action='store_true', help='Use Prior')
@@ -79,7 +79,7 @@ def main():
             "See e.g. https://github.com/pytorch/pytorch/issues/84936 for a discussion."
         )
 
-    model_checkpoint = "/root/sawsam/logs/memory_token_p.pt"
+    model_checkpoint = "/path/to/model_checkpoint"
     save_dict = os.path.join('vis_res', model_checkpoint.split('/')[-1].split('.')[0])
     os.makedirs(save_dict, exist_ok=True)
 
@@ -89,7 +89,7 @@ def main():
     model.load_state_dict(new_state)
     model.to(device)
 
-    dataset = DatasetIC_VOS('/root/autodl-tmp', '/root/autodl-tmp/new_dataset', 1)
+    dataset = DatasetIC_VOS('/path/to/coco', '/path/to/ic-vos', 1)
     dataloader_test = DataLoader(dataset, batch_size=1, shuffle=False)
 
     count = 0
