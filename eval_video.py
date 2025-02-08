@@ -1,7 +1,6 @@
 import os
 import argparse
 import numpy as np
-import pickle
 import torch
 from model.dc_sam2 import DC_SAM2
 from common.metrics import db_eval_iou, db_eval_boundary
@@ -42,6 +41,8 @@ def db_statistics(per_frame_values):
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Visual Prompt Encoder Pytorch Implementation')
+    parser.add_argument('--coco_path', type=str, default='/path/to/coco')
+    parser.add_argument('--icvos_path', type=str, default='/path/to/ic-vos')
     parser.add_argument('--nshot', type=int, default=1)
     parser.add_argument('--num_query', type=int, default=25)
     parser.add_argument('--backbone', type=str, default='resnet50', choices=['vgg16', 'resnet50', 'resnet101', 'swinb', 'dinov2b'])
@@ -52,6 +53,7 @@ def parse_arguments():
     parser.add_argument('--prior', action='store_true', help='Use Prior')
     parser.add_argument('--token_type', type=str, default='decoder', choices=['decoder', 'memory'])
     parser.add_argument('--add_token', action='store_true', help='Add token to the SAM2 model')
+    parser.add_argument('--ckpt', type=str, default='/path/to/ckpt')
     return parser.parse_args()
 
 def main():
@@ -79,7 +81,7 @@ def main():
             "See e.g. https://github.com/pytorch/pytorch/issues/84936 for a discussion."
         )
 
-    model_checkpoint = "/path/to/model_checkpoint"
+    model_checkpoint = args.ckpt
     save_dict = os.path.join('vis_res', model_checkpoint.split('/')[-1].split('.')[0])
     os.makedirs(save_dict, exist_ok=True)
 
@@ -89,7 +91,7 @@ def main():
     model.load_state_dict(new_state)
     model.to(device)
 
-    dataset = DatasetIC_VOS('/path/to/coco', '/path/to/ic-vos', 1)
+    dataset = DatasetIC_VOS(args.coco_path, args.icvos_path, 1)
     dataloader_test = DataLoader(dataset, batch_size=1, shuffle=False)
 
     count = 0
@@ -115,8 +117,6 @@ def main():
             count += 1
 
     print(f'{model_checkpoint} Mean J: {j_buf.mean()}, Mean F: {f_buf.mean()}, Mean J&F: {(j_buf.mean() + f_buf.mean()) / 2}')
-    with open('memorytokenp.pkl', 'wb') as f:
-        pickle.dump({'J_buf': j_buf, 'F_buf': f_buf, "pred_name": pred_name}, f)
 
     print('Validation finished!')
 

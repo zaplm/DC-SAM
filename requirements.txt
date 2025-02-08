@@ -1,0 +1,7 @@
+tensorboardX
+fvcore
+pandas
+opencv-python
+transformers
+peft
+scikit-image

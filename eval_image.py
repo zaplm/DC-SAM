@@ -33,7 +33,6 @@ def evaluate(args, model: DC_SAM, sam_model: SAM_plugin, dataloader):
         _, pre_mask = sam_model(batch['query_img'], batch['query_name'], protos)
         protos = model((q_feat, pre_mask, s_feat, protos), stage=2)
         
-        
         low_masks, pred_mask = sam_model(batch['query_img'], batch['query_name'], protos)
         logit_mask = low_masks
         
@@ -47,8 +46,6 @@ def evaluate(args, model: DC_SAM, sam_model: SAM_plugin, dataloader):
     
     average_meter.write_result('Validation', 0, print_res=True)
         
-
-
 
 if __name__ == '__main__':
 
@@ -81,9 +78,9 @@ if __name__ == '__main__':
         model = DC_SAM(args, args.backbone, False)
 
     sam_model = SAM_plugin(args.sam_version)
-    # state_dict = torch.load('/apdcephfs/private_pfzhu/VRP-SAM/logs/pascal_fold2_25query.log/best_model.pt')
-    # new_state = {k[7:]: v for k, v in state_dict.items()}
-    # model.load_state_dict(new_state)
+    state_dict = torch.load(args.ckpt, map_location='cpu')
+    new_state = {k[7:]: v for k, v in state_dict.items()}
+    model.load_state_dict(new_state)
     sam_model.to(device)
     model.to(device)
 
