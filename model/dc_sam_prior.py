@@ -273,7 +273,9 @@ class DC_SAM_Prior(nn.Module):
                neg_query_feat,
                output):
         pos_temp_query, neg_temp_query = output
-        pre_mask = F.interpolate(pre_mask.float().unsqueeze(1), size=(query_feat.size(2), query_feat.size(3)), mode='nearest')
+        if pre_mask.dim() == 3:
+            pre_mask = pre_mask.unsqueeze(1)
+        pre_mask = F.interpolate(pre_mask.float(), size=(query_feat.size(2), query_feat.size(3)), mode='nearest')
         protos = self.transformer_decoder((query_feat, pre_mask, pos_temp_query.permute(1, 0, 2)), stage=2)
         neg_protos = self.neg_transformer_decoder((neg_query_feat, 1-pre_mask, neg_temp_query.permute(1, 0, 2)), stage=2)
         return (protos, neg_protos)

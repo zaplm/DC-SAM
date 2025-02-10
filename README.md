@@ -33,7 +33,7 @@ git clone https://github.com/zaplm/DC-SAM.git && cd DC-SAM
 
 **Step 2**: create a conda environment and install the dependencies:
 ```
-conda create -n DCSAM python=3.8 -y
+conda create -n DCSAM python=3.10 -y
 conda activate DCSAM
 conda install pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 pytorch-cuda=12.1 -c pytorch -c nvidia -y
 cd segment-anything-2 && pip install -e .

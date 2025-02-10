@@ -42,7 +42,7 @@ class DC_SAM2(nn.Module):
         else:
             self.prompt_encoder = DC_SAM(args, args.backbone, False)
         if self.data_type == 'video':
-            state_dict = torch.load('/root/sawsam/logs/coco_all/best_model.pt')
+            state_dict = torch.load('/path/to/pretrain_checkpoint')
             new_state = {}
             for k, v in state_dict.items():
                 name = k[7:]
@@ -114,7 +114,6 @@ class DC_SAM2(nn.Module):
     def prepare_prompt_inputs(self, query_state, query_imgs, supp_imgs, supp_masks, query_sam, supp_sam):
         bs = query_imgs.shape[0]
         
-        protos, supp_prototype = self.prompt_encoder(query_imgs, supp_imgs, supp_masks, query_sam, supp_sam, pre_mask)
         protos, supp_prototype, q_feat, s_feat = self.prompt_encoder((query_imgs, supp_imgs, supp_masks, query_sam, supp_sam), stage=1)
         
         pre_mask = []
