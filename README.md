@@ -65,19 +65,19 @@ Download following datasets:
 
 Create a directory '../dataset' for the above few-shot segmentation datasets and appropriately place each dataset to have following directory structure:
 
-Datasets/
-├── VOC2012/            # PASCAL VOC2012 devkit
-│   ├── Annotations/
-│   ├── ImageSets/
-│   ├── ...
-│   └── SegmentationClassAug/
-└── COCO2014/           
-   ├── annotations/
-   │   ├── train2014/  # (dir.) training masks (from Google Drive) 
-   │   ├── val2014/    # (dir.) validation masks (from Google Drive)
-   │   └── ..some json files..
-   ├── train2014/
-   └── val2014/
+    Datasets/
+      ├── VOC2012/            # PASCAL VOC2012 devkit
+      │   ├── Annotations/
+      │   ├── ImageSets/
+      │   ├── ...
+      │   └── SegmentationClassAug/
+      └── COCO2014/           
+         ├── annotations/
+         │   ├── train2014/  # (dir.) training masks (from Google Drive) 
+         │   ├── val2014/    # (dir.) validation masks (from Google Drive)
+         │   └── ..some json files..
+         ├── train2014/
+         └── val2014/
 
 ## Preparing Pretrained Weights
 
