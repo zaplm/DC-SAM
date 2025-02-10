@@ -162,7 +162,7 @@ def vgg16_bn(pretrained=False, **kwargs):
     model = VGG(make_layers(cfg['D'], batch_norm=True), **kwargs)
     if pretrained:
         #model.load_state_dict(model_zoo.load_url(model_urls['vgg16_bn']))
-        model_path = '/mapai/pfzhu/sam_utils/weights/vgg16_bn_fss.pth'
+        model_path = '/path/to/vgg16_bn_fss.pth'
         model.load_state_dict(torch.load(model_path), strict=False)        
     return model
 

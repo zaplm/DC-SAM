@@ -41,7 +41,53 @@ cd ../segment-anything && pip install -e .
 cd .. && pip install -r requirements.txt
 ```
 
-## Data Prepare
+## Preparing Datasets
+
+Download following datasets:
+
+> #### 1. PASCAL-5<sup>i</sup>
+> Download PASCAL VOC2012 devkit (train/val data):
+> ```bash
+> wget http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar
+> ```
+> Download PASCAL VOC2012 SDS extended mask annotations from [[Google Drive](https://drive.google.com/file/d/10zxG2VExoEZUeyQl_uXga2OWHjGeZaf2/view?usp=sharing)].
+
+> #### 2. COCO-20<sup>i</sup>
+> Download COCO2014 train/val images and annotations: 
+> ```bash
+> wget http://images.cocodataset.org/zips/train2014.zip
+> wget http://images.cocodataset.org/zips/val2014.zip
+> wget http://images.cocodataset.org/annotations/annotations_trainval2014.zip
+> ```
+> Download COCO2014 train/val annotations from Google Drive: [[train2014.zip](https://drive.google.com/file/d/1cwup51kcr4m7v9jO14ArpxKMA4O3-Uge/view?usp=sharing)], [[val2014.zip](https://drive.google.com/file/d/1PNw4U3T2MhzAEBWGGgceXvYU3cZ7mJL1/view?usp=sharing)].
+> (and locate both train2014/ and val2014/ under annotations/ directory).
+
+
+Create a directory '../dataset' for the above few-shot segmentation datasets and appropriately place each dataset to have following directory structure:
+
+Datasets/
+   ├── VOC2012/            # PASCAL VOC2012 devkit
+   │   ├── Annotations/
+   │   ├── ImageSets/
+   │   ├── ...
+   │   └── SegmentationClassAug/
+   └── COCO2014/           
+      ├── annotations/
+      │   ├── train2014/  # (dir.) training masks (from Google Drive) 
+      │   ├── val2014/    # (dir.) validation masks (from Google Drive)
+      │   └── ..some json files..
+      ├── train2014/
+      └── val2014/
+
+## Preparing Pretrained Weights
+
+ResNet-50/101_v2 can be download from [Google Drive](https://drive.google.com/drive/folders/1Hrz1wOxOZm4nIIS7UMJeL79AQrdvpj6v)
+
+VGG-16_bn can be download from [here](https://download.pytorch.org/models/vgg16_bn-6c64b313.pth)
+
+SAM checkpoint can be download from this [repository](https://github.com/facebookresearch/segment-anything?tab=readme-ov-file#model-checkpoints:~:text=First%20download%20a-,model%20checkpoint,-.%20Then%20the%20model)
+
+SAM2 checkpoint can be download from this [repository](https://github.com/facebookresearch/sam2)
 
 ## Training & Evaluation
 
